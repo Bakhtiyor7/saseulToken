@@ -26,7 +26,7 @@ async function main(
 
   const res = await mintToken(
     space,
-    "TestToken3333",
+    "TestToken001",
     "t3",
     "1000000000000000000000",
     18,

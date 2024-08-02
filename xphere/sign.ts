@@ -2,17 +2,26 @@ import nacl from "tweetnacl";
 import util from "./util";
 import enc from "./enc";
 
+interface KeyPairResult {
+  private_key: string;
+  public_key: string;
+  address: string;
+}
 class Sign {
   KEY_SIZE = 64;
   SIGNATURE_SIZE = 128;
 
   keyPair() {
     let pair = nacl.sign.keyPair();
-    let result = {};
+    let result: KeyPairResult = {
+      private_key: util.byteToHex(pair.secretKey).slice(0, this.KEY_SIZE),
+      public_key: util.byteToHex(pair.publicKey),
+      address: this.address(util.byteToHex(pair.publicKey)),
+    };
 
-    result.private_key = util.byteToHex(pair.secretKey).slice(0, this.KEY_SIZE);
-    result.public_key = util.byteToHex(pair.publicKey);
-    result.address = this.address(result.public_key);
+    // result.private_key = util.byteToHex(pair.secretKey).slice(0, this.KEY_SIZE);
+    // result.public_key = util.byteToHex(pair.publicKey);
+    // result.address = this.address(result.public_key);
 
     return result;
   }

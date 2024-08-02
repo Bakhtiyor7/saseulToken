@@ -14,6 +14,11 @@ const privateKey =
 //   "67a33840282655346d047e6c83cce778a8477199d624f2834a8eb6df2ec71031";
 const space = "hansNftTest";
 
+// generate unique token id
+function generateUniqueTokenId(): string {
+  return Math.floor(Date.now() / 1000).toString();
+}
+
 async function main(
   space: string,
   peer: string,
@@ -31,13 +36,15 @@ async function main(
 
   // console.log("nftIssue: ", res);
 
+  const uniqueTokenId = generateUniqueTokenId();
+
   const mintRes = await nftMint(
     space,
-    "NFT 2",
-    "2",
-    "test token2",
-    "my data2",
-    "ext2",
+    "NFT 2", // name of nft
+    uniqueTokenId, // token id
+    "test leo token01", //description
+    "my data leo1", // data
+    "ext03", // extension
     peer,
     address,
     privateKey
